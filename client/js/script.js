@@ -6,7 +6,10 @@ var app = new Vue({
     books: [],
     cart: [],
     checkout: [],
-    totalprice: 0
+    totalprice: 0,
+    username: '',
+    email: '',
+    password: ''
   },
 
   methods: {
@@ -66,6 +69,20 @@ var app = new Vue({
         this.checkout = []
         this.cart = []
         this.totalprice = 0
+    },
+    signup: function() {
+      axios.post('http://localhost:3000/api/user/signup', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      console.log(this.username, this.password, this.email);
     }
   },
 

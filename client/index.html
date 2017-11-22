@@ -24,13 +24,13 @@
             <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Daftar</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Checkout({{this.checkout.length}})</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#signup"><span class="glyphicon glyphicon-user"></span> Daftar</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </div>
       </nav>
-
+        <p>{{ username }}</p>
       <header class="page-header">
         <div class="container text-center">
           <h1>Book dj Store</h1>
@@ -100,7 +100,6 @@
 
         </div>
       </div>
-
       <!-- Modal -->
       <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -180,7 +179,41 @@
           </div>
         </div>
       </div>
+      <!-- Modal -->
+      <div class="modal fade" id="signup" role="dialog">
+        {{ halo }}
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Daftar</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="usr">Name:</label>
+                <input type="text" class="form-control" id="usr" name="" value="" v-model="username">
+              </div>
+              <div class="form-group">
+                <label for="eml">Email:</label>
+                <input type="email" class="form-control" id="eml" name="email" v-model="email">
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" name="password" v-model="password">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" v-on:click="signup">signup</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+      </div>
+
+
+
+      </div>
     </div>
+  </div>
 
       <script type="text/javascript" src="/js/script.js"></script>
   </body>
