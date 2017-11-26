@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav navbar-left">
+            <h3>Book dj Store</h3>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid kontainer">
+        <div class="row content">
+
+          <div class="col-sm-3 sidenav" id="sidebar">
+            <div class="col-sm-12" id="sidebar-title">
+              <h3>Category</h3>
+            </div>
+            <div class="col-sm-12">
+              <ul class="nav nav-pills nav-stacked">
+                <!-- <li role="presentation"><a href="#">All</a></li>
+                <li role="presentation" @click="currentView='book-all'"><a href="">Book</a></li>
+                <li role="presentation"><a href="" @click="currentView='create-book'">Create Book</a></li> -->
+                <li role="presentation"><a href="#" @click="currentView='book-all'">Book</a></li>
+                <li role="presentation"><a href="#" @click="currentView='create-book'">Create Book</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-sm-9 col-lg-9">
+            <h1>Booklist</h1>
+            <div class="row">
+              <div class="col-sm-10">
+                <component :is="currentView" :key="currentView" :books="books" @delete-book="deleteBook" @edit-book="populateBook"></component>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="container-fluid background-grey">
+        <div class="row">
+          <div class="col-sm-4 text-center">
+            <h4>Contact us</h4>
+            <p>Get in touch here if you have any queries or issues.</p>
+          </div>
+          <div class="col-sm-4 text-center">
+            <h4>Help & Support</h4>
+            <p>Click here for FAQs, order information, T&Cs, errata and code downloads.</p>
+          </div>
+          <div class="col-sm-4 text-center">
+            <h4>Alerts & Offers</h4>
+            <p>Sign up to our emails for regular updates, bespoke offers, exclusive discounts and great free content.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Book</h4>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <form>
+                  <div class="form-group">
+                    <label for="title">title:</label>
+                    <input type="text" class="form-control" id="etitle" :value="title">
+                  </div>
+                  <div class="form-group">
+                    <label for="author">author:</label>
+                    <input type="text" class="form-control" id="eauthor" :value="author">
+                  </div>
+                  <div class="form-group">
+                    <label for="category">Category:</label>
+                    <input type="text" class="form-control" id="ecategory" :value="category">
+                  </div>
+                  <div class="form-group">
+                    <label for="stok">Stok:</label>
+                    <input type="text" class="form-control" id="estok" :value="stok">
+                  </div>
+                  <div class="form-group">
+                    <label for="harga">Harga:</label>
+                    <input type="text" class="form-control" id="eharga" :value="harga">
+                  </div>
+                  <div class="form-group">
+                    <label for="urlimage">urlimage:</label>
+                    <input type="text" class="form-control" id="eurlimage" :value="urlimage">
+                  </div>
+                  <button type="submit" class="btn btn-default" v-on:click="editBook">submit</button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script type="text/javascript" src="/js/component/book-all.js"></script>
+    <script type="text/javascript" src="/js/component/create-book.js"></script>
+    <script type="text/javascript" src="/js/admin.js"></script>
+
+  </body>
+</html>

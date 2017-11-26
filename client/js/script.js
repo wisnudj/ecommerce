@@ -9,7 +9,15 @@ var app = new Vue({
     totalprice: 0,
     username: '',
     email: '',
-    password: ''
+    password: '',
+    transactions: '',
+    title: '',
+    author: '',
+    category: '',
+    stok: 0,
+    harga: 0,
+    urlimage: '',
+    history: []
   },
 
   methods: {
@@ -22,9 +30,19 @@ var app = new Vue({
     },
 
     getBook: function() {
-      axios.get('http://localhost:3000/api/book/all')
+      axios.get('http://35.197.130.250/api/book/all')
       .then((data)=>{
         this.books = data.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    },
+
+    getTransaction: function() {
+      axios.get('http://35.197.130.250/api/book/all')
+      .then((hasil)=>{
+        this.transactions = hasil.data
       })
       .catch(function (error) {
         console.log(error);
@@ -54,8 +72,8 @@ var app = new Vue({
     },
 
     checkouttodb: function() {
-      axios.post('http://localhost:3000/api/transaction/beli', {
-          customer: "5a13e953fe91b8304aca0341",
+      axios.post('http://35.197.130.250/api/transaction/beli', {
+          customer: "5a15a65243ae782b5576fb96",
           totalprice: this.totalprice,
           book: this.checkout
         })
@@ -71,7 +89,7 @@ var app = new Vue({
         this.totalprice = 0
     },
     signup: function() {
-      axios.post('http://localhost:3000/api/user/signup', {
+      axios.post('http://35.197.130.250/api/user/signup', {
           username: this.username,
           email: this.email,
           password: this.password
@@ -83,11 +101,60 @@ var app = new Vue({
           console.log(error);
         })
       console.log(this.username, this.password, this.email);
+    },
+
+    createBook: function() {
+      axios.post('http://35.197.130.250/api/book/add', {
+        title: this.title,
+        author: this.author,
+        category: this.category,
+        stok: this.stok,
+        harga: this.harga,
+        urlimage: this.urlimage
+      }).then(function(response) {
+        console.log(response)
+      }).catch(function() {
+        console.log(error);
+      })
+    },
+
+    getAllTransaction: function() {
+      axios.get('http://35.197.130.250/api/transaction/all')
+      .then((hasil)=>{
+
+        var data = hasil.data
+        for(var i = 0; i < data.length; i++) {
+          var tampungs = []
+          for(var j = 0; j < data[i].items.length; j++) {
+            function cariIndex(tampung) {
+              return tampung._id == data[i].items[j]._id
+            }
+
+            var index = tampungs.findIndex(cariIndex)
+            console.log(index);
+
+            if(index == -1) {
+              data[i].items[j].quantity = 1
+              data[i].items[j].tanggal = new Date(data[i].createdAt).toLocaleDateString()
+              tampungs.push(data[i].items[j])
+            }
+            else {
+              tampungs[index].quantity++
+            }
+          }
+          this.history.push(...tampungs)
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
     }
   },
 
   created () {
+    
     this.getBook()
+    this.getAllTransaction()
   }
 
 })
