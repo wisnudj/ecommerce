@@ -25,6 +25,25 @@ class Book {
     })
   }
 
+  static deleteBook(req, res) {
+    bookModel.remove({_id: req.params.id}).then((hasil) => {
+      res.send(hasil)
+    })
+  }
+
+  static editBook(req, res) {
+    bookModel.update({_id: req.params.id}, {
+      title: req.body.title,
+      author: req.body.author,
+      category: req.body.category,
+      stok: req.body.stok,
+      harga: req.body.harga,
+      urlimage: req.body.urlimage
+    }).then((hasil) => {
+      res.send(hasil)
+    })
+  }
+
 }
 
 module.exports = Book;

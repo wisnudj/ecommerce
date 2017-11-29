@@ -16,7 +16,7 @@ class Transaction {
   }
 
   static getalltransaction(req, res) {
-    transactionModel.find().populate('items').exec((err, transaction) => {
+    transactionModel.find().populate('items').populate('customer').exec((err, transaction) => {
       res.send(transaction)
     })
   }
